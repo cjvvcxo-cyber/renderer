@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CxO Direct MP4 Renderer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header><div class="brand">CXO <span>MP4 renderer</span></div><div class="tag">WEBCODECS · H.264</div></header>
+    <section class="hero"><p>DIRECT BROWSER EXPORT</p><h1>Project JSON directly to MP4.</h1><span>This renderer encodes deterministic canvas frames with the browser H.264 encoder. It does not use MediaRecorder, real-time playback, WebM, or FFmpeg conversion.</span></section>
+
+    <section class="loaders">
+      <article class="panel"><b>1</b><h2>Project JSON</h2><input id="projectInput" type="file" accept=".json,application/json" hidden><button id="projectButton">Choose JSON</button><small id="projectStatus">Not loaded</small></article>
+      <article class="panel"><b>2</b><h2>Image folder</h2><input id="folderInput" type="file" webkitdirectory multiple accept="image/*" hidden><button id="folderButton">Choose folder</button><small id="folderStatus">Not loaded</small></article>
+      <article class="panel"><b>3</b><h2>Logo</h2><input id="logoInput" type="file" accept="image/*" hidden><button id="logoButton">Choose logo</button><small id="logoStatus">Optional</small></article>
+    </section>
+
+    <section class="panel validation">
+      <div><span>Scenes</span><strong id="sceneCount">0</strong></div><div><span>Required</span><strong id="requiredCount">0</strong></div><div><span>Matched</span><strong id="matchedCount">0</strong></div><div><span>Missing</span><strong id="missingCount">0</strong></div><div><span>H.264</span><strong id="codecStatus">Checking</strong></div>
+    </section>
+
+    <section class="main-grid">
+      <section class="panel canvas-panel"><canvas id="canvas" width="1080" height="1350"></canvas></section>
+      <aside class="panel controls">
+        <h2>MP4 export</h2>
+        <label>Duration<select id="duration"><option value="project">Use project duration</option><option value="60">60 seconds</option><option value="90">90 seconds</option><option value="120">120 seconds</option></select></label>
+        <label>Frames per second<select id="fps"><option value="24">24 FPS</option><option value="30" selected>30 FPS</option></select></label>
+        <label>Quality<select id="bitrate"><option value="6000000">Standard · 6 Mbps</option><option value="10000000" selected>High · 10 Mbps</option><option value="14000000">Maximum · 14 Mbps</option></select></label>
+        <button id="previewButton" disabled>Preview first scene</button>
+        <button id="renderButton" class="primary" disabled>Render MP4</button>
+        <button id="cancelButton" class="danger" disabled>Cancel render</button>
+        <button id="downloadButton" class="success" disabled>Download MP4 again</button>
+        <div class="progress"><div id="bar"></div></div>
+        <div id="status">Load the project and image folder.</div>
+        <pre id="log"></pre>
+      </aside>
+    </section>
+
+    <section class="panel note"><strong>Important:</strong> Keep this page open while encoding. The render is frame-based rather than real-time, so switching tabs does not reset the timeline. The final MP4 download button remains available after completion.</section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
